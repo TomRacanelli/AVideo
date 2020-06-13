@@ -4,7 +4,7 @@ include $global['systemRootPath'] . 'view/include/updateCheck.php';
 <?php
 if (User::isAdmin()) {
     ?>
-    <div class="row">
+    <div class="container-fluid row">
         <div class="col-md-12">
             <form class="form-compact well form-horizontal"  id="updateConfigForm" onsubmit="">
 

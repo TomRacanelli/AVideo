@@ -110,7 +110,7 @@ if ($baseName !== 'xsendfile.php' && class_exists("Plugin")) {
     _error_log("Class Plugin Not found: {$_SERVER['REQUEST_URI']}");
 }
 if (empty($global['bodyClass'])) {
-    $global['bodyClass'] = "";
+    $global['bodyClass'] = "youtube";
 }
 $global['allowedExtension'] = array('gif', 'jpg', 'mp4', 'webm', 'mp3','m4a', 'ogg', 'zip');
 $advancedCustom = AVideoPlugin::getObjectData("CustomizeAdvanced");

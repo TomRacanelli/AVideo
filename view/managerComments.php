@@ -27,7 +27,7 @@ require_once $global['systemRootPath'] . 'objects/comment.php';
         include $global['systemRootPath'] . 'view/include/navbar.php';
         ?>
 
-        <div class="container">
+        <div class="container-fluid">
                     <?php
         include $global['systemRootPath'] . 'view/include/updateCheck.php';
         ?>

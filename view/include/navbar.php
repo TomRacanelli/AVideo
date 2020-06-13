@@ -251,6 +251,11 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
         <ul class="items-container">
             <li>
                 <ul class="left-side">
+                    <li style="width: 100%; text-align: center;">
+                        <a class="navbar-brand" id="mainNavbarLogo" href="<?php echo empty($advancedCustom->logoMenuBarURL) ? $global['webSiteRootURL'] : $advancedCustom->logoMenuBarURL; ?>" >
+                            <img src="<?php echo $global['webSiteRootURL'], $config->getLogo(true); ?>" alt="<?php echo $config->getWebSiteTitle(); ?>" class="img-responsive ">
+                        </a>
+                    </li>
                     <li style="max-width: 40px;">
                         <button class="btn btn-default navbar-btn pull-left" id="buttonMenu"  data-toggle="tooltip" title="<?php echo __("Main Menu"); ?>" data-placement="bottom" ><span class="fa fa-bars"></span></button>
                         <script>
@@ -265,10 +270,15 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                                 youTubeMenuIsOpened = false;
                             }
                             $(document).ready(function () {
+
                                 if(inIframe()){
                                     $("#mainNavBar").hide();
                                     $("body").css("padding-top", "0");
                                 }
+                                
+                                $('#myNavbar').removeClass("in");
+                                $('#mysearch').removeClass("in");
+
                                 $('#buttonMenu').on("click.sidebar", function (event) {
                                     event.stopPropagation();
                                     //$('#sidebar').fadeToggle();
@@ -319,11 +329,29 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                             });
                         </script>
                     </li>
-                    <li style="width: 100%; text-align: center;">
-                        <a class="navbar-brand" id="mainNavbarLogo" href="<?php echo empty($advancedCustom->logoMenuBarURL) ? $global['webSiteRootURL'] : $advancedCustom->logoMenuBarURL; ?>" >
-                            <img src="<?php echo $global['webSiteRootURL'], $config->getLogo(true); ?>" alt="<?php echo $config->getWebSiteTitle(); ?>" class="img-responsive ">
-                        </a>
-                    </li>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo __('Manage Videos')?> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $global['webSiteRootURL']; ?>mvideos"><?=__('My Videos')?></a></li>
+                            <li><a href="<?php echo $global['webSiteRootURL']; ?>charts"><?=__('Analytics')?></a></li>
+                            <li><a href="<?php echo $global['webSiteRootURL']; ?>categories"><?=__('Categories')?></a></li>
+                        </ul>
+                        </li>
+                    </ul>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo __('Watch')?> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $global['webSiteRootURL']; ?>categories"><?=__('Categories')?></a></li>
+                            <li><a href="<?php echo $global['webSiteRootURL']; ?>channels"><?=__('Channels')?></a></li>
+                            <li><a href="#"><?=__('Most Popular')?></a></li>
+                            <li><a href="#"><?=__('Most Watches')?></a></li>
+                        </ul>
+                        </li>
+                    </ul>
                     <?php
                     if (!empty($advancedCustomUser->keepViewerOnChannel) && !empty($_SESSION['channelName'])) {
                         $user = User::getChannelOwner($_SESSION['channelName']);
@@ -603,33 +631,11 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                                             <li>
                                                 <hr>
                                             </li>
-                                            <?php
-                                            if (!$advancedCustomUser->disableSignOutButton) {
-                                                ?>
-                                                <li>
-                                                    <a href="<?php echo $global['webSiteRootURL']; ?>logoff" >
-                                                        <?php
-                                                        if (!empty($_COOKIE['user']) && !empty($_COOKIE['pass'])) {
-                                                            ?>
-                                                            <i class="fas fa-lock text-muted" style="opacity: 0.2;"></i>    
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <i class="fas fa-lock-open text-muted" style="opacity: 0.2;"></i>    
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                        <i class="fas fa-sign-out-alt"></i> <?php echo __("Sign out"); ?>
-                                                    </a>
-                                                </li> 
-                                                <?php
-                                            }
-                                            ?>
 
                                             <li>
                                                 <a href="<?php echo $global['webSiteRootURL']; ?>user" style="border-radius: 4px 4px 0 0;">
                                                     <span class="fa fa-user-circle"></span>
-                                                    <?php echo __("My Account"); ?>
+                                                    <?php echo __("Profile"); ?>
                                                 </a>
                                             </li>
 
@@ -639,8 +645,7 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                                                 <li>
                                                     <a href="<?php echo $global['webSiteRootURL']; ?>mvideos">
                                                         <span class="glyphicon glyphicon-film"></span>
-                                                        <span class="glyphicon glyphicon-headphones"></span>
-                                                        <?php echo __("My videos"); ?>
+                                                        <?php echo __("Videos"); ?>
                                                     </a>
                                                 </li>
                                                 <?php
@@ -649,7 +654,7 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                                             <li>
                                                 <a href="<?php echo User::getChannelLink(); ?>" >
                                                     <span class="fas fa-play-circle"></span>
-                                                    <?php echo __($advancedCustomUser->MyChannelLabel); ?>
+                                                    <?php echo __("Channels"); ?>
                                                 </a>
                                             </li>    
                                             <?php
@@ -661,16 +666,36 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                                                 <li>
                                                     <a href="<?php echo $global['webSiteRootURL']; ?>charts">
                                                         <span class="fas fa-tachometer-alt"></span>
-                                                        <?php echo __("Dashboard"); ?>
+                                                        <?php echo __("Analytics"); ?>
                                                     </a>
                                                 </li>
                                                 <?php
-                                            } if (User::canUpload()) {
+                                            } 
+                                            ?>
+                                            <li>
+                                                <hr style="margin:2px;"/>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="fas fa-tachometer-alt"></span>
+                                                    <?php echo __("Watch Later"); ?>
+                                                </a>
+                                            </li>
+                                            
+                                            <li>
+                                                <a href="#">
+                                                    <span class="fas fa-heart"></span>
+                                                    <?php echo __("Favourite"); ?>
+                                                </a>
+                                            </li>
+
+                                            <?php
+                                            if (User::canUpload()) {
                                                 ?>
                                                 <li>
                                                     <a href="<?php echo $global['webSiteRootURL']; ?>subscribes">
                                                         <span class="fa fa-check"></span>
-                                                        <?php echo __("My Subscribers"); ?>
+                                                        <?php echo __("Subscribers"); ?>
                                                     </a>
                                                 </li>
                                                 <?php
@@ -693,6 +718,33 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                                                         <?php echo __("Comments"); ?>
                                                     </a>
                                                 </li>
+                                                <?php
+                                            }
+                                            ?>
+                                            <li>
+                                                <hr style="margin:2px;"/>
+                                            </li>
+                                            <?php
+                                            if (!$advancedCustomUser->disableSignOutButton) {
+                                                ?>
+                                                <li>
+                                                    <a href="<?php echo $global['webSiteRootURL']; ?>logoff" >
+                                                    <!--
+                                                        <?php
+                                                        if (!empty($_COOKIE['user']) && !empty($_COOKIE['pass'])) {
+                                                            ?>
+                                                            <i class="fas fa-lock text-muted" style="opacity: 0.2;"></i>    
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <i class="fas fa-lock-open text-muted" style="opacity: 0.2;"></i>    
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    -->
+                                                        <i class="fas fa-sign-out-alt"></i> <?php echo __("Sign out"); ?>
+                                                    </a>
+                                                </li> 
                                                 <?php
                                             }
                                             ?>
@@ -726,15 +778,15 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
         </ul>
 
 
-        <div id="sidebar" class="list-group-item" style="<?php echo $sidebarStyle; ?>">
+        <div id="sidebar" class="list-group-item">
             <div id="sideBarContainer">
                 <ul class="nav navbar">
 
                     <?php
                     if (empty($advancedCustom->doNotShowLeftHomeButton)) {
                         ?>
+                        <!--
                         <li>
-
                             <div>
                                 <a href="<?php echo $global['webSiteRootURL']; ?>" class="btn btn-primary btn-block  " style="border-radius: 4px 4px 0 0;">
                                     <span class="fa fa-home"></span>
@@ -743,11 +795,13 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
 
                             </div>
                         </li>
+                        -->
                         <?php
                     }
 
                     if (empty($advancedCustom->doNotShowLeftTrendingButton)) {
                         ?>
+                        <!--
                         <li>
 
                             <div>
@@ -758,17 +812,17 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
 
                             </div>
                         </li>
+                        -->
                         <?php
                     }
                     if (empty($advancedCustomUser->doNotShowLeftProfile)) {
                         if (User::isLogged()) {
                             ?>
+                            <!--
                             <li>
                                 <hr>
                             </li>
                             <li>
-                                <h2 class="text-danger"><?php echo __("My Menu"); ?></h2>
-
                                 <?php
                                 if (!$advancedCustomUser->disableSignOutButton) {
                                     ?>
@@ -791,9 +845,10 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                                     <?php
                                 }
                                 ?>
-
                             </li>
-                            <li style="min-height: 60px;">
+                            -->
+                            <!--
+                            <li style="min-height: 60px;" style="display:none;">
                                 <div class="pull-left" style="margin-left: 10px;">
                                     <img src="<?php echo User::getPhoto(); ?>" style="max-width: 55px;"  class="img img-thumbnail img-responsive img-circle"/>
                                 </div>
@@ -803,6 +858,20 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
 
                                 </div>
                             </li>
+                            -->
+                            <?php
+                            if (empty($advancedCustom->doNotShowLeftHomeButton)) {
+                                ?>
+                                <li>
+                                    <a href="<?php echo $global['webSiteRootURL']; ?>">
+                                        <span class="fa fa-home"></span>
+                                        <?php echo __("Home"); ?>
+                                    </a>
+                                </li>
+                                <?php
+                            }
+                            ?>
+                            <!--
                             <li>
 
                                 <div>
@@ -813,22 +882,21 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
 
                                 </div>
                             </li>
-
+                            -->
                             <?php
                             if (User::canUpload()) {
                                 ?>
                                 <li>
-                                    <div>
-                                        <a href="<?php echo $global['webSiteRootURL']; ?>mvideos" class="btn btn-success btn-block" style="border-radius: 0;">
-                                            <span class="glyphicon glyphicon-film"></span>
-                                            <span class="glyphicon glyphicon-headphones"></span>
-                                            <?php echo __("My videos"); ?>
-                                        </a>
-                                    </div>
+                                    <a href="<?php echo $global['webSiteRootURL']; ?>mvideos">
+                                        <span class="glyphicon glyphicon-film"></span>
+                                        <span class="glyphicon glyphicon-headphones"></span>
+                                        <?php echo __("My videos"); ?>
+                                    </a>
                                 </li>
                                 <?php
                             }
                             ?>
+                            <!--
                             <li>
 
                                 <div>
@@ -838,12 +906,14 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                                     </a>
 
                                 </div>
-                            </li>    
+                            </li>
+                            -->    
                             <?php
                             print AVideoPlugin::navBarButtons();
 
                             if ((($config->getAuthCanViewChart() == 0) && (User::canUpload())) || (($config->getAuthCanViewChart() == 1) && (User::canViewChart()))) {
                                 ?>
+                                <!--
                                 <li>
                                     <div>
                                         <a href="<?php echo $global['webSiteRootURL']; ?>charts" class="btn btn-default btn-block" style="border-radius: 0;">
@@ -852,9 +922,11 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                                         </a>
                                     </div>
                                 </li>
+                                -->
                                 <?php
                             } if (User::canUpload()) {
                                 ?>
+                                <!--
                                 <li>
                                     <div>
                                         <a href="<?php echo $global['webSiteRootURL']; ?>subscribes" class="btn btn-default btn-block" style="border-radius: 0">
@@ -863,28 +935,25 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                                         </a>
                                     </div>
                                 </li>
+                                -->
                                 <?php
                                 if (Category::canCreateCategory()) {
                                     ?>
 
                                     <li>
-                                        <div>
-                                            <a href="<?php echo $global['webSiteRootURL']; ?>categories" class="btn btn-default btn-block" style="border-radius: 0;">
-                                                <span class="glyphicon glyphicon-list"></span>
-                                                <?php echo __($advancedCustom->CategoryLabel); ?>
-                                            </a>
-                                        </div>
+                                        <a href="<?php echo $global['webSiteRootURL']; ?>categories">
+                                            <span class="glyphicon glyphicon-list"></span>
+                                            <?php echo __($advancedCustom->CategoryLabel); ?>
+                                        </a>
                                     </li>
                                     <?php
                                 }
                                 ?>
                                 <li>
-                                    <div>
-                                        <a href="<?php echo $global['webSiteRootURL']; ?>comments" class="btn btn-default btn-block" style="border-radius: 0 0 4px 4px;">
-                                            <span class="fa fa-comment"></span>
-                                            <?php echo __("Comments"); ?>
-                                        </a>
-                                    </div>
+                                    <a href="<?php echo $global['webSiteRootURL']; ?>comments">
+                                        <span class="fa fa-comment"></span>
+                                        <?php echo __("Comments"); ?>
+                                    </a>
                                 </li>
                                 <?php
                             }
@@ -908,12 +977,30 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                     }
                     if (User::isAdmin()) {
                         ?>
+                    <li>
+                        <a href="<?php echo $global['webSiteRootURL']; ?>users">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <?php echo __("Users"); ?>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $global['webSiteRootURL']; ?>usersGroups">
+                            <span class="fa fa-users"></span>
+                            <?php echo __("Users Groups"); ?>
+                        </a>
+                    </li>
+                    <?php } 
+                    if (User::isAdmin()) {
+                        ?>
                         <li>
                             <hr>
                         </li>
                         <li>
-                            <h2 class="text-danger"><?php echo __("Admin Menu"); ?></h2>
-                            <ul  class="nav navbar" style="margin-bottom: 10px;">
+                            <h2 class="text-danger" style="cursor:pointer;" onclick="$('#sidebar_admin').toggle();">
+                                <i class="fas fa-cog"></i>
+                                <?php echo __("Admin Menu"); ?>
+                            </h2>
+                            <ul id="sidebar_admin" class="nav navbar" style="margin-bottom: 10px; display:none;">
                                 <li>
                                     <a href="<?php echo $global['webSiteRootURL']; ?>admin/">
                                         <i class="fas fa-star"></i>
@@ -990,11 +1077,10 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                     }
                     ?>
 
-
+                    <!--
                     <?php
                     echo AVideoPlugin::getHTMLMenuLeft();
                     ?>
-
                     <?php
                     if (empty($advancedCustom->doNotShowLeftMenuAudioAndVideoButtons)) {
                         ?>
@@ -1022,11 +1108,13 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                         <?php
                     }
                     ?>
+                    -->
 
                     <?php
                     if (empty($advancedCustom->removeBrowserChannelLinkFromMenu)) {
                         ?>
                         <!-- Channels -->
+                        <!--
                         <li>
                             <hr>
                         </li>
@@ -1039,14 +1127,17 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                                 <?php echo __("Browse Channels"); ?>
                             </a>
                         </li>
-
+                        -->
                         <?php
                     }
                     ?>
+                    <!--
                     <li>
                         <hr>
                     </li>
+                    -->
                     <!-- categories -->
+                    <!--
                     <li>
                         <h3 class="text-danger"><?php echo __($advancedCustom->CategoryLabel); ?></h3>
                     </li>
@@ -1121,9 +1212,9 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                         $_GET = $get;
                     }
                     ?>
-
+                    -->
                     <!-- categories END -->
-
+                    <!--
                     <li>
                         <hr>
                     </li>
@@ -1161,6 +1252,7 @@ if (!empty($advancedCustomUser->userMustBeLoggedIn) && !empty($advancedCustomUse
                         <?php
                     }
                     ?>
+                    -->
                 </ul>
             </div>
         </div>

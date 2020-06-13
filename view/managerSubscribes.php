@@ -24,7 +24,7 @@ if (!User::canUpload()) {
         include $global['systemRootPath'] . 'view/include/navbar.php';
         ?>
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="col-lg-9">
                 <textarea id="emailMessage" placeholder="<?php echo __("Enter text"); ?> ..." style="width: 100%;"></textarea>
             </div>

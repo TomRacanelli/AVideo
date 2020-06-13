@@ -211,6 +211,7 @@ iframe{
     height: 160px;
 }
 .container-fluid{
+    margin-left: 300px;
     overflow: hidden;
     padding-bottom: 50px;
 }

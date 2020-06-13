@@ -18,7 +18,7 @@ require_once $global['systemRootPath'] . 'admin/functions.php';
         ?>
     </head>
 
-    <body class="<?php echo $global['bodyClass']; ?>">
+    <body class="<?php echo $global['bodyClass']; ?> youtube">
         <?php
         include $global['systemRootPath'] . 'view/include/navbar.php';
         include $global['systemRootPath'] . 'view/configurations_body.php';

@@ -167,6 +167,7 @@ switch ($_GET['page']) {
     default :
         $includeHead = $global['systemRootPath'] . 'view/charts_head.php';
         $includeBody = $global['systemRootPath'] . 'view/charts_body.php';
+        $global['container_style'] = 'style="margin-left: 0px;"';
         break;
 }
 ?>

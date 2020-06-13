@@ -1,4 +1,4 @@
-<div class="list-group-item clear clearfix">
+<div class="container-fluid list-group-item clear clearfix" <?=isset($global['container_style']) ? $global['container_style'] : ''?>>
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#dashboard"><i class="fas fa-tachometer-alt"></i> <?php echo __("Dashboard"); ?></a></li>
         <li><a data-toggle="tab" id="viewperchannel" href="#menu1"><i class="fas fa-play-circle"></i> <i class="fa fa-eye"></i> <?php echo __("Video views - per Channel"); ?></a></li>

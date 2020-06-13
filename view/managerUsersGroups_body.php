@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="btn-group" >
         <button type="button" class="btn btn-default" id="addUserGroupsBtn">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <?php echo __("New User Groups"); ?>

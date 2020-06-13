@@ -18,7 +18,7 @@ if(!isset($global['systemRootPath'])){
         include $global['systemRootPath'] . 'view/include/navbar.php';
         ?>
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="bgWhite">
                 <?php
                 $custom = "";
